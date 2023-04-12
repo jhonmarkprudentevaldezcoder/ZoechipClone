@@ -1,5 +1,5 @@
+/* eslint-disable */
 import React from 'react';
-
 const MainContainer = ({ results }) => {
   return (
     <div>
@@ -17,6 +17,7 @@ const MainContainer = ({ results }) => {
           </div>
 
           <div>
+            <h3>TRENDING</h3>
             <div>
               {results.map((result) => (
                 <div key={result.id}>{result.original_title}</div>
