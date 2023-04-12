@@ -1,8 +1,22 @@
-import Image from 'next/image';
-import { Inter } from 'next/font/google';
+import MainContainer from './components/MainContainer';
 
-const inter = Inter({ subsets: ['latin'] });
+const API_KEY = process.env.API_KEY; /* API KEY */
 
-export default function Home() {
-  return <div>hello</div>;
+async function getData() {
+  const res = await fetch(
+    `https://api.themoviedb.org/3/movie/550?api_key=058656fa2298b8939959508260aa1ee4`,
+    { next: { revalidate: 10 } }
+  );
+
+  return res.json();
+}
+
+export default async function Home() {
+  const data = await getData();
+
+  return (
+    <div className="bg-stone-900">
+      <MainContainer />
+    </div>
+  );
 }

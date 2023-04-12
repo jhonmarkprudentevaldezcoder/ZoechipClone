@@ -1,32 +1,80 @@
+'use client';
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 import { AiOutlineMenuUnfold } from 'react-icons/ai';
+import { TbMenuOrder } from 'react-icons/tb';
+import { MdOutlineDarkMode, MdDarkMode } from 'react-icons/md';
 
 const Navbar = () => {
+  const [showMenu, setShowMenu] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
   return (
-    <div>
-      <nav className="w-full text-center justify-between flex flex-row bg-[#333333] px-10 py-4">
-        <div className="px-20 text-lg text-teal-500 ">LOGO</div>
-        <div>
-          <ul className="flex flex-row text-teal-500 text-lg cursor-pointer">
-            <li className="px-10 hover:text-teal-300">
-              <Link href="#">Home</Link>
+    <div
+      className={` ${
+        darkMode ? 'bg-stone-950' : 'bg-white'
+      } transition ease-in-out delay-75 duration-300`}
+    >
+      <div className="w-full mx-auto flex content-center justify-between px-10 ">
+        <div className="py-4 flex gap-4 px-10">
+          <div className="text-teal-300 ">
+            <span
+              className="cursor-pointer "
+              onClick={() => {
+                if (darkMode == false) {
+                  setDarkMode(true);
+                } else {
+                  setDarkMode(false);
+                }
+              }}
+            >
+              <h3 className="text-red-600 text-2xl font-bold">MARKFLIX</h3>
+            </span>
+          </div>
+        </div>
+
+        <div className="hidden  md:flex text-gray-300 py-4 px-10 space-x-6">
+          <h3>UNLIMITED TV SHOWS & MOVIES</h3>
+        </div>
+
+        {showMenu ? (
+          <div className="flex mobile-button md:hidden text-red-800 py-4 text-4xl cursor-pointer">
+            <TbMenuOrder
+              onClick={() => {
+                setShowMenu(false);
+              }}
+            />
+          </div>
+        ) : (
+          <div className="flex mobile-button md:hidden text-red-800 py-4 text-4xl cursor-pointer">
+            <AiOutlineMenuUnfold
+              onClick={() => {
+                setShowMenu(true);
+              }}
+            />
+          </div>
+        )}
+      </div>
+
+      {showMenu ? (
+        <div className="mobile-view md:hidden">
+          <ul className="text-teal-200 px-10 flex-col gap-5 ">
+            <li>
+              <Link href="/">Home</Link>
             </li>
-            <li className="px-10 hover:text-teal-300">
-              <Link href="#">Movies</Link>
+            <li>
+              <Link href="/">Home</Link>
             </li>
-            <li className="px-10 hover:text-teal-300">
-              <Link href="#">About</Link>
+            <li>
+              <Link href="/">Home</Link>
+            </li>
+            <li>
+              <Link href="/">Home</Link>
             </li>
           </ul>
         </div>
-
-        <div className="hidden sm:">
-          <span className="text-2xl cursor-pointer hover:text-teal-300 text-teal-400">
-            <AiOutlineMenuUnfold />
-          </span>
-        </div>
-      </nav>
+      ) : (
+        ''
+      )}
     </div>
   );
 };
