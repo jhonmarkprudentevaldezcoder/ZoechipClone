@@ -2,21 +2,18 @@ import MainContainer from './components/MainContainer';
 
 const API_KEY = process.env.API_KEY; /* API KEY */
 
-async function getData() {
-  const res = await fetch(
-    `https://api.themoviedb.org/3/movie/550?api_key=058656fa2298b8939959508260aa1ee4`,
-    { next: { revalidate: 10 } }
-  );
-
-  return res.json();
-}
-
 export default async function Home() {
-  const data = await getData();
-
+  const res = await fetch(
+    `
+  https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}&language=en-US&page=1`,
+    { next: { revalidate: 10000 } }
+  );
+  const data = await res.json();
+  const results = data.results;
+  console.log(results);
   return (
     <div className="bg-stone-900">
-      <MainContainer />
+      <MainContainer results={results} />
     </div>
   );
 }
